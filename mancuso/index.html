@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienes Mancuso Gómez — Reparación · periodismosint.xyz</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0b0d;--bg2:#111318;--bg3:#181c22;--bg4:#1e232b;
+  --border:rgba(255,255,255,0.07);--border2:rgba(201,146,42,0.28);
+  --amber:#C9922A;--al:#E8B54A;--ad:rgba(201,146,42,0.1);
+  --text:#e8e4da;--td:#8a8680;--tm:#4a4640;
+  --green:#4a9e6e;--gb:rgba(74,158,110,0.1);
+  --mono:'IBM Plex Mono','Courier New',monospace;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --serif:'Playfair Display',Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.6;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);pointer-events:none;z-index:9000}
+
+/* ── HEADER ── */
+.hdr{position:sticky;top:0;background:rgba(10,11,13,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:300;display:flex;flex-direction:column}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:44px;border-bottom:1px solid var(--border)}
+.logo{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.14em;text-decoration:none}
+.logo span{color:var(--tm)}
+.hdr-right{font-family:var(--mono);font-size:9px;color:var(--tm);letter-spacing:.1em}
+
+/* TABS */
+.tabs{display:flex;padding:0 2rem;gap:0}
+.tab-btn{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--tm);background:none;border:none;border-bottom:2px solid transparent;padding:10px 16px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.tab-btn:hover{color:var(--al)}
+.tab-btn.active{color:var(--al);border-bottom-color:var(--amber)}
+
+/* PANELS */
+.panel{display:none;max-width:960px;margin:0 auto;padding:2rem}
+.panel.active{display:block}
+
+/* HERO */
+.hero-tag{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--amber);text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+.hero-tag::before{content:'';display:inline-block;width:16px;height:1px;background:var(--amber)}
+.hero h1{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;line-height:1.15;margin-bottom:.7rem;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--al)}
+.hero-desc{color:var(--td);font-size:13px;max-width:660px;line-height:1.75;margin-bottom:1.5rem}
+.hero-meta{font-family:var(--mono);font-size:10px;color:var(--tm);display:flex;gap:1.5rem;flex-wrap:wrap}
+.hero-meta em{color:var(--amber);font-style:normal}
+
+/* KPIS */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-top:2rem}
+.kpi{background:var(--bg2);padding:1.25rem 1rem;display:flex;flex-direction:column;gap:.3rem;transition:background .2s}
+.kpi:hover{background:var(--bg3)}
+.kpi-num{font-family:var(--mono);font-size:1.7rem;font-weight:600;color:var(--al);line-height:1}
+.kpi-label{font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--tm)}
+.kpi-bar{height:2px;background:var(--border);margin-top:.4rem;position:relative;overflow:hidden}
+.kpi-bar-f{position:absolute;left:0;top:0;bottom:0;background:var(--amber)}
+
+/* SECTION HEAD */
+.sh{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:1.25rem;margin-top:2rem;display:flex;align-items:center;gap:.6rem}
+.sh::after{content:'';flex:1;height:1px;background:var(--border2)}
+.sh:first-child{margin-top:0}
+
+/* MAP */
+.map-layout{display:grid;grid-template-columns:1fr 280px;gap:1.5rem;align-items:start}
+.map-card{background:var(--bg2);border:1px solid var(--border);padding:1.25rem}
+.map-card svg{display:block;width:100%}
+.map-hint{font-family:var(--mono);font-size:9px;color:var(--tm);text-align:center;margin-top:.5rem}
+.map-side{display:flex;flex-direction:column;gap:1rem}
+.legend-box{background:var(--bg2);border:1px solid var(--border);padding:1.25rem}
+.legend-title{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tm);margin-bottom:.8rem}
+.legend-scale{display:flex;gap:2px;margin-bottom:.35rem}
+.legend-scale div{height:7px;flex:1}
+.legend-labs{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--tm);margin-bottom:1rem}
+.dept-row-l{display:flex;align-items:center;gap:.6rem;padding:3px 4px;cursor:pointer;border:1px solid transparent;transition:border-color .2s}
+.dept-row-l:hover{border-color:var(--border2)}
+.dept-dot{width:9px;height:9px;flex-shrink:0}
+.dept-nm{font-family:var(--mono);font-size:10px;color:var(--td);flex:1}
+.dept-vl{font-family:var(--mono);font-size:10px;color:var(--amber)}
+.dept-bar-mini{height:2px;background:var(--amber);opacity:.5;margin-top:2px}
+.bl-legend{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin-top:.5rem}
+.bl-item{display:flex;align-items:center;gap:.35rem;font-family:var(--mono);font-size:9px;color:var(--tm)}
+.bl-dot{width:8px;height:8px;flex-shrink:0}
+
+/* TOOLTIP */
+#tt{position:fixed;background:rgba(17,19,24,0.97);border:1px solid var(--border2);padding:10px 14px;font-family:var(--mono);font-size:11px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:500;max-width:220px;min-width:170px}
+.tt-d{font-size:13px;font-weight:600;color:var(--al);margin-bottom:5px}
+.tt-t{font-size:10px;color:var(--td);margin-bottom:5px;border-bottom:1px solid var(--border);padding-bottom:5px}
+.tt-b{font-size:9px;color:var(--tm);display:flex;justify-content:space-between;gap:10px;margin-top:3px}
+.tt-b span:last-child{color:var(--amber)}
+
+/* CHARTS */
+.c2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem}
+.c3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-bottom:1.5rem}
+.cbox{background:var(--bg2);border:1px solid var(--border);padding:1.25rem}
+.ctitle{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tm);margin-bottom:1rem}
+
+/* INLINE BAR */
+.ibr{display:flex;align-items:center;gap:.55rem;margin-bottom:.45rem}
+.ibl{font-family:var(--mono);font-size:10px;color:var(--td);width:120px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ibt{flex:1;height:7px;background:var(--border);position:relative;overflow:hidden}
+.ibf{position:absolute;left:0;top:0;bottom:0;transition:width .8s ease}
+.ibv{font-family:var(--mono);font-size:10px;color:var(--amber);min-width:22px;text-align:right;flex-shrink:0}
+
+/* STACKED */
+.sbr{display:flex;align-items:center;gap:.55rem;margin-bottom:.45rem}
+.sbl{font-family:var(--mono);font-size:10px;color:var(--td);width:100px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sbt{flex:1;height:11px;display:flex;overflow:hidden;gap:1px}
+.sbs{height:100%}
+.sbv{font-family:var(--mono);font-size:10px;color:var(--td);min-width:20px;text-align:right}
+
+/* FILTERS */
+.filters-box{background:var(--bg2);border:1px solid var(--border);padding:1.25rem;margin-bottom:1.25rem}
+.filters-hd{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tm);margin-bottom:.9rem;display:flex;align-items:center;justify-content:space-between}
+.reset-btn{font-family:var(--mono);font-size:9px;color:var(--amber);background:none;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.08em;transition:opacity .2s}
+.reset-btn:hover{opacity:.7}
+.frow{display:grid;grid-template-columns:repeat(3,1fr) 2fr;gap:.6rem;margin-bottom:.6rem}
+.frow2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:0}
+.fg label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--tm);margin-bottom:.3rem}
+.fg select,.fg input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--td);font-family:var(--mono);font-size:11px;padding:5px 9px;appearance:none;cursor:pointer;outline:none;transition:border-color .2s}
+.fg select:hover,.fg input:hover,.fg select:focus,.fg input:focus{border-color:var(--amber);color:var(--text)}
+.fg select option{background:var(--bg2)}
+.rcnt{font-family:var(--mono);font-size:10px;color:var(--tm);margin-bottom:.7rem}
+.rcnt em{color:var(--al);font-style:normal}
+
+/* TABLE */
+.twrap{overflow-x:auto;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}
+thead th{background:var(--bg3);color:var(--tm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:9px 11px;text-align:left;border-bottom:1px solid var(--border);cursor:pointer;white-space:nowrap;user-select:none;transition:color .2s}
+thead th:hover{color:var(--amber)}
+thead th.sorted{color:var(--al)}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+tbody tr:hover{background:var(--bg3)}
+tbody td{padding:8px 11px;color:var(--td);vertical-align:middle}
+.tdm{color:var(--amber);font-size:10px}
+.tdn{color:var(--text);font-size:11px}
+.pill{display:inline-block;padding:2px 7px;font-size:9px;letter-spacing:.07em;text-transform:uppercase;border-radius:2px}
+.pr{background:rgba(74,158,110,0.09);color:#5bb88a;border:1px solid rgba(74,158,110,0.2)}
+.pu{background:var(--ad);color:var(--al);border:1px solid var(--border2)}
+.pb{background:rgba(255,255,255,0.03);color:var(--tm);border:1px solid var(--border);font-size:8px;display:block;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pgn{display:flex;align-items:center;gap:.4rem;margin-top:.9rem;justify-content:center;flex-wrap:wrap}
+.pb2{font-family:var(--mono);font-size:10px;background:var(--bg2);border:1px solid var(--border);color:var(--td);padding:4px 9px;cursor:pointer;transition:all .2s;min-width:30px;text-align:center}
+.pb2:hover{border-color:var(--amber);color:var(--amber)}
+.pb2.active{background:var(--ad);border-color:var(--amber);color:var(--al)}
+.pb2:disabled{opacity:.3;cursor:default}
+
+/* JURIDICA */
+.jgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:1.5rem}
+.jcard{background:var(--bg2);padding:1.5rem}
+.jcard-t{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:.7rem}
+.jcard p{font-size:13px;color:var(--td);line-height:1.75}
+.badge{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:2px;margin-bottom:.6rem}
+.bg{background:var(--gb);color:var(--green);border:1px solid rgba(74,158,110,0.22)}
+.ba{background:var(--ad);color:var(--al);border:1px solid var(--border2)}
+.tl{display:flex;flex-direction:column}
+.tli{display:grid;grid-template-columns:80px 1fr;gap:.8rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.tli:last-child{border-bottom:none}
+.tly{font-family:var(--mono);font-size:11px;color:var(--amber);padding-top:2px}
+.tlt{font-size:13px;color:var(--td);line-height:1.65}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);max-width:960px;margin:0 auto;padding:2rem;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+.fc{font-family:var(--mono);font-size:10px;color:var(--tm);line-height:1.9}
+.fc a{color:var(--amber);text-decoration:none}
+.fd{font-size:11px;color:var(--tm);max-width:400px;line-height:1.75;border-left:2px solid var(--border2);padding-left:1rem}
+
+/* DONUT */
+.donut-wrap{display:flex;align-items:center;gap:1.2rem;margin-top:.3rem}
+.donut-labels{display:flex;flex-direction:column;gap:.4rem}
+.di{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:10px;color:var(--td)}
+.dd{width:8px;height:8px;flex-shrink:0}
+
+@media(max-width:720px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .map-layout{grid-template-columns:1fr}
+  .c2,.c3{grid-template-columns:1fr}
+  .jgrid{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr 1fr}
+  .frow2{grid-template-columns:1fr 1fr}
+  .panel{padding:1.2rem}
+  .tabs{overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<div id="tt">
+  <div class="tt-d" id="tt-d"></div>
+  <div class="tt-t" id="tt-t"></div>
+  <div id="tt-b"></div>
+</div>
+
+<!-- HEADER + TABS -->
+<div class="hdr">
+  <div class="hdr-top">
+    <a class="logo" href="#">periodismo<span>sint</span>.xyz</a>
+    <div class="hdr-right">Ley 975 · Justicia y Paz · UARIV</div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('inicio',this)">Inicio</button>
+    <button class="tab-btn" onclick="switchTab('mapa',this)">Mapa</button>
+    <button class="tab-btn" onclick="switchTab('graficas',this)">Gráficas</button>
+    <button class="tab-btn" onclick="switchTab('datos',this)">Base de datos</button>
+    <button class="tab-btn" onclick="switchTab('juridica',this)">Situación jurídica</button>
+  </div>
+</div>
+
+<!-- ══════════════ PANEL: INICIO ══════════════ -->
+<div class="panel active" id="panel-inicio">
+  <div class="hero" style="padding-top:2rem">
+    <div class="hero-tag">Base de datos · Justicia transicional · Colombia</div>
+    <h1>Bienes postulados a reparación por<br><em>Salvatore Mancuso Gómez</em></h1>
+    <p class="hero-desc">Herramienta periodística de consulta pública sobre los 148 inmuebles postulados por el excomandante paramilitar Salvatore Mancuso Gómez en el marco de la Ley 975 de 2005 (Justicia y Paz). Los activos, distribuidos en 8 departamentos y 21 municipios, forman parte del proceso de reparación integral a las víctimas del conflicto armado. Mancuso ostenta hoy la figura de <strong style="color:var(--al)">Gestor de Paz</strong> ante el Gobierno Nacional.</p>
+    <div class="hero-meta">
+      <span>Registros: <em>148</em></span>
+      <span>Departamentos: <em>8</em></span>
+      <span>Municipios: <em>21</em></span>
+      <span>Bloques AUC: <em>6</em></span>
+      <span>Fuente: <em>UARIV · Ley 975</em></span>
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-num">148</div><div class="kpi-label">Total bienes</div><div class="kpi-bar"><div class="kpi-bar-f" style="width:100%"></div></div></div>
+    <div class="kpi"><div class="kpi-num">116</div><div class="kpi-label">Rurales</div><div class="kpi-bar"><div class="kpi-bar-f" style="width:78%"></div></div></div>
+    <div class="kpi"><div class="kpi-num">32</div><div class="kpi-label">Urbanos</div><div class="kpi-bar"><div class="kpi-bar-f" style="width:22%"></div></div></div>
+    <div class="kpi"><div class="kpi-num">92</div><div class="kpi-label">Fincas</div><div class="kpi-bar"><div class="kpi-bar-f" style="width:62%"></div></div></div>
+    <div class="kpi"><div class="kpi-num">6</div><div class="kpi-label">Bloques AUC</div><div class="kpi-bar"><div class="kpi-bar-f" style="width:40%"></div></div></div>
+  </div>
+  <!-- Mini resumen visual -->
+  <div class="c2" style="margin-top:1.5rem">
+    <div class="cbox">
+      <div class="ctitle">Distribución por departamento</div>
+      <div id="inicio-depto"></div>
+    </div>
+    <div class="cbox">
+      <div class="ctitle">Distribución por bloque AUC</div>
+      <div id="inicio-bloque"></div>
+    </div>
+  </div>
+  <div class="c2">
+    <div class="cbox">
+      <div class="ctitle">Top 5 municipios</div>
+      <div id="inicio-mun"></div>
+    </div>
+    <div class="cbox">
+      <div class="ctitle">Tipo de bien</div>
+      <div id="inicio-tipo"></div>
+    </div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border2);padding:1.25rem;margin-top:.5rem">
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:.8rem">Navegación del dashboard</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)">
+      <div onclick="switchTabByName('mapa')" style="background:var(--bg3);padding:1rem;cursor:pointer;transition:background .2s" onmouseover="this.style.background='#1e232b'" onmouseout="this.style.background='var(--bg3)'">
+        <div style="font-family:var(--mono);font-size:18px;color:var(--amber);margin-bottom:.4rem">⬡</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--al);margin-bottom:.3rem">Mapa</div>
+        <div style="font-size:11px;color:var(--tm)">Colombia por departamento. Tooltip con bloques AUC.</div>
+      </div>
+      <div onclick="switchTabByName('graficas')" style="background:var(--bg3);padding:1rem;cursor:pointer;transition:background .2s" onmouseover="this.style.background='#1e232b'" onmouseout="this.style.background='var(--bg3)'">
+        <div style="font-family:var(--mono);font-size:18px;color:var(--amber);margin-bottom:.4rem">▬</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--al);margin-bottom:.3rem">Gráficas</div>
+        <div style="font-size:11px;color:var(--tm)">7 visualizaciones: barras, stacked, donut.</div>
+      </div>
+      <div onclick="switchTabByName('datos')" style="background:var(--bg3);padding:1rem;cursor:pointer;transition:background .2s" onmouseover="this.style.background='#1e232b'" onmouseout="this.style.background='var(--bg3)'">
+        <div style="font-family:var(--mono);font-size:18px;color:var(--amber);margin-bottom:.4rem">≡</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--al);margin-bottom:.3rem">Base de datos</div>
+        <div style="font-size:11px;color:var(--tm)">148 registros filtrables por 7 capas.</div>
+      </div>
+      <div onclick="switchTabByName('juridica')" style="background:var(--bg3);padding:1rem;cursor:pointer;transition:background .2s" onmouseover="this.style.background='#1e232b'" onmouseout="this.style.background='var(--bg3)'">
+        <div style="font-family:var(--mono);font-size:18px;color:var(--amber);margin-bottom:.4rem">§</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--al);margin-bottom:.3rem">Situación jurídica</div>
+        <div style="font-size:11px;color:var(--tm)">Marco legal, Gestor de Paz y cronología.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PANEL: MAPA ══════════════ -->
+<div class="panel" id="panel-mapa">
+  <div class="sh" style="margin-top:0">Mapa coroplético — bienes por departamento</div>
+  <div class="map-layout">
+    <div class="map-card">
+      <svg id="colombia-map" viewBox="0 0 500 580"></svg>
+      <div class="map-hint">Pasa el cursor sobre cada departamento · Click para resaltar</div>
+    </div>
+    <div class="map-side">
+      <div class="legend-box">
+        <div class="legend-title">Intensidad (nº bienes)</div>
+        <div class="legend-scale" id="legend-scale"></div>
+        <div class="legend-labs"><span>0</span><span>53</span></div>
+        <div id="dept-list-map"></div>
+      </div>
+      <div class="legend-box">
+        <div class="legend-title">Bloques AUC presentes</div>
+        <div class="bl-legend" id="bl-leg-map"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PANEL: GRÁFICAS ══════════════ -->
+<div class="panel" id="panel-graficas">
+  <div class="sh" style="margin-top:0">Distribución geográfica y tipológica</div>
+  <div class="c2">
+    <div class="cbox"><div class="ctitle">Bienes por departamento</div><div id="g-depto"></div></div>
+    <div class="cbox"><div class="ctitle">Top 10 municipios</div><div id="g-mun"></div></div>
+  </div>
+  <div class="c2">
+    <div class="cbox"><div class="ctitle">Tipo de inmueble</div><div id="g-tipo"></div></div>
+    <div class="cbox"><div class="ctitle">Clase de bien — rural / urbano</div><div id="g-clase"></div></div>
+  </div>
+  <div class="sh">Por bloque paramilitar</div>
+  <div class="c2">
+    <div class="cbox"><div class="ctitle">Bienes por bloque AUC</div><div id="g-bloque"></div></div>
+    <div class="cbox"><div class="ctitle">Rural vs urbano por departamento</div><div id="g-ruvs"></div></div>
+  </div>
+  <div class="cbox" style="margin-bottom:1.5rem">
+    <div class="ctitle">Bloques AUC por departamento (stacked)</div>
+    <div id="g-stacked"></div>
+    <div class="bl-legend" id="bl-leg-chart" style="margin-top:.8rem"></div>
+  </div>
+</div>
+
+<!-- ══════════════ PANEL: DATOS ══════════════ -->
+<div class="panel" id="panel-datos">
+  <div class="sh" style="margin-top:0">Consulta de bienes postulados</div>
+  <div class="filters-box">
+    <div class="filters-hd">
+      <span>Filtros por capa</span>
+      <button class="reset-btn" id="btn-reset">↺ Limpiar filtros</button>
+    </div>
+    <div class="frow">
+      <div class="fg"><label>Clase bien</label>
+        <select id="f-clase"><option value="">Todos</option><option value="RURAL">Rural</option><option value="URBANO">Urbano</option></select>
+      </div>
+      <div class="fg"><label>Tipo inmueble</label><select id="f-tipo"></select></div>
+      <div class="fg"><label>Departamento</label><select id="f-depto"></select></div>
+      <div class="fg"><label>Buscar nombre / matrícula</label><input type="text" id="f-search" placeholder="Ej: villa rosa, 140-85132…"></div>
+    </div>
+    <div class="frow2">
+      <div class="fg"><label>Municipio</label><select id="f-municipio"></select></div>
+      <div class="fg"><label>Bloque AUC</label><select id="f-bloque"></select></div>
+      <div class="fg"><label>Vereda</label><select id="f-vereda"></select></div>
+    </div>
+  </div>
+  <div class="rcnt" id="results-count"></div>
+  <div class="twrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-col="MATRICULA">Matrícula <span class="si">↕</span></th>
+          <th data-col="NOMBRE">Nombre bien <span class="si">↕</span></th>
+          <th data-col="CLASE">Clase <span class="si">↕</span></th>
+          <th data-col="TIPO">Tipo <span class="si">↕</span></th>
+          <th data-col="DEPARTAMENTO">Departamento <span class="si">↕</span></th>
+          <th data-col="MUNICIPIO">Municipio <span class="si">↕</span></th>
+          <th data-col="VEREDA">Vereda <span class="si">↕</span></th>
+          <th data-col="BLOQUE">Bloque <span class="si">↕</span></th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+  <div class="pgn" id="pagination"></div>
+</div>
+
+<!-- ══════════════ PANEL: JURÍDICA ══════════════ -->
+<div class="panel" id="panel-juridica">
+  <div class="sh" style="margin-top:0">Situación jurídica del postulado</div>
+  <div class="jgrid">
+    <div class="jcard">
+      <div class="badge bg">Gestor de Paz — activo</div>
+      <div class="jcard-t">Rol actual</div>
+      <p>Salvatore Mancuso Gómez fue designado <strong style="color:var(--text)">Gestor de Paz</strong> por el Gobierno Nacional colombiano. En esta condición participa activamente en los procesos de paz, colabora con la Jurisdicción Especial para la Paz (JEP) y contribuye al esclarecimiento de los crímenes cometidos durante el conflicto armado. Su gestión se orienta hacia la reparación integral de las víctimas de las AUC, el apoyo a la búsqueda de desaparecidos y el desmonte de estructuras paramilitares residuales.</p>
+    </div>
+    <div class="jcard">
+      <div class="badge ba">Ley 975 de 2005</div>
+      <div class="jcard-t">Marco normativo</div>
+      <p>Los bienes listados fueron postulados en el marco de la <strong style="color:var(--text)">Ley 975 de 2005 (Justicia y Paz)</strong>, que establece mecanismos de reparación a víctimas del conflicto armado. La postulación de bienes es un acto central del proceso: el postulado ofrece activos para que el Estado los administre en beneficio de las víctimas. Mancuso está además acogido al Sistema Integral de Verdad, Justicia, Reparación y No Repetición (SIVJRNR).</p>
+    </div>
+    <div class="jcard">
+      <div class="badge ba">Justicia y Paz</div>
+      <div class="jcard-t">Proceso de reparación</div>
+      <p>La Sala de Justicia y Paz del Tribunal Superior supervisa que los bienes enlistados sean efectivamente transferidos al Fondo para la Reparación de Víctimas, administrado por la UARIV. Los 148 inmuebles de esta base de datos constituyen el inventario formal de activos aportados por Mancuso y sus bloques de las AUC en el proceso de reparación.</p>
+    </div>
+    <div class="jcard">
+      <div class="badge bg">Activismo por la reparación</div>
+      <div class="jcard-t">Dimensión política</div>
+      <p>La figura de Gestor de Paz implica compromisos concretos: participación en actos de reconocimiento, entrega de información sobre hechos del conflicto, colaboración con comisiones de búsqueda de personas desaparecidas y respaldo a procesos de reconciliación. Este rol es supervisado por el Gobierno y organizaciones de derechos humanos.</p>
+    </div>
+  </div>
+  <div class="sh">Cronología jurídica</div>
+  <div class="tl">
+    <div class="tli"><div class="tly">1997–2004</div><div class="tlt">Mancuso lidera el Bloque Córdoba y otras estructuras de las AUC en el norte de Colombia. Se le atribuyen crímenes de lesa humanidad, masacres y desplazamiento forzado.</div></div>
+    <div class="tli"><div class="tly">2004–2006</div><div class="tlt">Negociación y desmovilización de las AUC. Mancuso se acoge a la Ley 975 (Justicia y Paz) e inicia la entrega de bienes para reparación de víctimas.</div></div>
+    <div class="tli"><div class="tly">2008</div><div class="tlt">Extraditado a Estados Unidos por cargos de narcotráfico. Colabora con la DEA y el Departamento de Justicia en investigaciones contra estructuras narcoparamilitares.</div></div>
+    <div class="tli"><div class="tly">2020–2022</div><div class="tlt">Cumple condena en EE.UU. y retorna al proceso de Justicia y Paz colombiano. Comparece ante la JEP y reitera compromisos de verdad y reparación.</div></div>
+    <div class="tli"><div class="tly">2023–2025</div><div class="tlt">El Gobierno colombiano lo designa Gestor de Paz. Participa en audiencias de la JEP, actos públicos de reconocimiento de víctimas y apoya procesos de búsqueda de personas desaparecidas.</div></div>
+    <div class="tli"><div class="tly">Vigente</div><div class="tlt">Continúa el proceso de entrega de bienes y colaboración con la UARIV para la efectiva reparación de las víctimas. Los 148 inmuebles son parte activa de ese proceso.</div></div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="fc">
+    <div style="color:var(--amber);margin-bottom:.3rem;letter-spacing:.12em">periodismosint.xyz</div>
+    <div>Periodismo de investigación · Colombia</div>
+    <div>Fuente: UARIV · Ley 975 / 2005 · JEP</div>
+    <div>GeoJSON: DANE Colombia (john-guerra)</div>
+  </div>
+  <div class="fd">
+    <strong style="color:var(--td);display:block;margin-bottom:.3rem">Nota metodológica</strong>
+    Herramienta de carácter informativo y periodístico. Los bienes corresponden a inmuebles postulados formalmente ante la Sala de Justicia y Paz como parte del proceso de reparación a víctimas. La postulación no implica condena adicional sobre propiedades no investigadas. Para usos legales, consultar directamente a la UARIV.
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+/* ═══════════════ TAB NAVIGATION ═══════════════ */
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='mapa') initMap();
+}
+function switchTabByName(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelector(`.tab-btn[onclick*="'${id}'"]`).classList.add('active');
+  if(id==='mapa') initMap();
+}
+
+/* ═══════════════ DATA ═══════════════ */
+const FULL = [
+{"M":"140-85132","C":"RURAL","T":"LOTE","N":"VILLA ROSA","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-85134","C":"RURAL","T":"LOTE","N":"SAN JOSE","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-85183","C":"RURAL","T":"FINCA","N":"EL ESCONDIDO","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-21220","C":"RURAL","T":"LOTE","N":"FINCA PROVIDENCIA","D":"CÓRDOBA","MU":"TIERRALTA","V":"LORENZO","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-107260","C":"RURAL","T":"FINCA","N":"ESPERANZA 2","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-106465","C":"RURAL","T":"FINCA","N":"FINCA VIZCAYA","D":"CÓRDOBA","MU":"TIERRALTA","V":"SAN LORENZO","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-105381","C":"RURAL","T":"LOTE","N":"ESPERANZA 1","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-107254","C":"RURAL","T":"LOTE","N":"FINCA MI REFUGIO","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"062-16733","C":"RURAL","T":"FINCA","N":"VILLA AMALIA","D":"BOLIVAR","MU":"EL GUAMO","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"062-27227","C":"RURAL","T":"FINCA","N":"EL CHIMBORAZO","D":"BOLIVAR","MU":"EL GUAMO","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"062-12266","C":"RURAL","T":"FINCA","N":"CARARE","D":"BOLIVAR","MU":"EL GUAMO","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"062-6254","C":"RURAL","T":"FINCA","N":"SAN JOSE","D":"BOLIVAR","MU":"EL GUAMO","V":"","B":"BLOQUE CATATUMBO DE LAS A.U.C."},
+{"M":"062-10155","C":"RURAL","T":"FINCA","N":"EL BONGO","D":"BOLIVAR","MU":"EL GUAMO","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-15288","C":"RURAL","T":"FINCA","N":"NUEVA DELHI","D":"CÓRDOBA","MU":"TIERRALTA","V":"PALMAR COLORADO","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-31267","C":"RURAL","T":"FINCA","N":"VILLA NUEVA","D":"CÓRDOBA","MU":"TIERRALTA","V":"EL VOLADOR","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-31268","C":"RURAL","T":"FINCA","N":"LA GUAIRA","D":"CÓRDOBA","MU":"TIERRALTA","V":"EL VOLADOR","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-16253","C":"RURAL","T":"LOTE","N":"LA GLORIA","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-68438","C":"RURAL","T":"PARCELA","N":"PAZ VERDE","D":"CÓRDOBA","MU":"TIERRALTA","V":"LOS LORENZOS","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"062-281","C":"RURAL","T":"FINCA","N":"LAS PAMPAS","D":"BOLIVAR","MU":"EL GUAMO","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-105385","C":"RURAL","T":"LOTE","N":"CUMBIA 3","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-6059","C":"RURAL","T":"FINCA","N":"EL GUAYABO","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-68442","C":"RURAL","T":"FINCA","N":"LA GLORIA","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-96804","C":"RURAL","T":"FINCA","N":"LOS ALMENDROS","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-96803","C":"RURAL","T":"FINCA","N":"LA FUENTE","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-2614","C":"RURAL","T":"FINCA","N":"BUENOS AIRES","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"001-832882","C":"URBANO","T":"APARTAMENTO","N":"APARTAMENTO 1506 EL POBLADO - BALCONES DE LA CALERA","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CATATUMBO DE LAS A.U.C."},
+{"M":"001-832996","C":"URBANO","T":"CUARTO UTIL","N":"CUARTO UTIL #40 EL POBLADO - BALCONES DE LA CALERA","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CATATUMBO DE LAS A.U.C."},
+{"M":"001-832932","C":"URBANO","T":"PARQUEADERO","N":"PARQUEADERO 103 EL POBLADO - BALCONES DE LA CALERA","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CATATUMBO DE LAS A.U.C."},
+{"M":"001-832935","C":"URBANO","T":"PARQUEADERO","N":"PARQUEADERO 112 EL POBLADO - BALCONES DE LA CALERA","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CATATUMBO DE LAS A.U.C."},
+{"M":"140-45483","C":"RURAL","T":"PARCELA","N":"PARCELA 17 - LOS CAMPANOS","D":"CÓRDOBA","MU":"VALENCIA","V":"PESCADO ABAJO","B":"BLOQUE CATATUMBO DE LAS A.U.C."},
+{"M":"140-44635","C":"RURAL","T":"PARCELA","N":"PARCELA 19 - LOS CAMPANOS","D":"CÓRDOBA","MU":"VALENCIA","V":"PESCADO ABAJO","B":"BLOQUE CATATUMBO DE LAS A.U.C."},
+{"M":"140-58105","C":"RURAL","T":"PARCELA","N":"PARCELA 41 - LOS CAMPANOS","D":"CÓRDOBA","MU":"VALENCIA","V":"PESCADO ABAJO","B":"BLOQUE CATATUMBO DE LAS A.U.C."},
+{"M":"140-46272","C":"URBANO","T":"CASA","N":"CASA BARRIO LA CASTELLANA CL 64 8A 56","D":"CÓRDOBA","MU":"MONTERÍA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-46288","C":"URBANO","T":"CASA","N":"CASA BARRIO LA CASTELLANA CL 64 8A 53","D":"CÓRDOBA","MU":"MONTERÍA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-99645","C":"URBANO","T":"LOCAL","N":"LOCAL BARRIO LA CASTELLANA CL 64 8A 65","D":"CÓRDOBA","MU":"MONTERÍA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-5157","C":"RURAL","T":"FINCA","N":"LAS DELIAS","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-41606","C":"RURAL","T":"FINCA","N":"LA DICHA","D":"CÓRDOBA","MU":"TIERRALTA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"001-638771","C":"URBANO","T":"OFICINA","N":"OFICINA 305 EDIFICIO ALIANZA COMERCIAL","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"001-638783","C":"URBANO","T":"PARQUEADERO","N":"PARQUEADERO #5 EDIFICIO ALIANZA COMERCIAL","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"001-638784","C":"URBANO","T":"PARQUEADERO","N":"PARQUEADERO #6 EDIFICIO ALIANZA COMERCIAL","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-42902","C":"RURAL","T":"FINCA","N":"LAS BRISAS","D":"ANTIOQUIA","MU":"MUTATÁ","V":"LEONCITO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-43842","C":"RURAL","T":"FINCA","N":"LA FLORIDA","D":"ANTIOQUIA","MU":"MUTATÁ","V":"LEONCITO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-43718","C":"RURAL","T":"FINCA","N":"LA SUERTE","D":"ANTIOQUIA","MU":"MUTATÁ","V":"LEONCITO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-43606","C":"RURAL","T":"FINCA","N":"LA LIBERTAD","D":"ANTIOQUIA","MU":"MUTATÁ","V":"LEONCITO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-44048","C":"RURAL","T":"FINCA","N":"VILLA JUMI","D":"ANTIOQUIA","MU":"MUTATÁ","V":"VILLA LUZ","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-44047","C":"RURAL","T":"FINCA","N":"LAS GOLONDRINAS","D":"ANTIOQUIA","MU":"MUTATÁ","V":"VILLA LUZ","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-43288","C":"RURAL","T":"FINCA","N":"LA UNION","D":"ANTIOQUIA","MU":"MUTATÁ","V":"LOS CEDROS","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-43284","C":"RURAL","T":"FINCA","N":"GRACIAS A DIOS","D":"ANTIOQUIA","MU":"MUTATÁ","V":"VILLA LUZ","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-43085","C":"RURAL","T":"FINCA","N":"NUNCA ES TARDE","D":"ANTIOQUIA","MU":"MUTATÁ","V":"VILLA LUZ","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-43633","C":"RURAL","T":"FINCA","N":"LA COMPAÑIA","D":"ANTIOQUIA","MU":"MUTATÁ","V":"LOS CEDROS","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-41961","C":"RURAL","T":"FINCA","N":"LA PRIMAVERA","D":"ANTIOQUIA","MU":"MUTATÁ","V":"LEONCITO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"007-41960","C":"RURAL","T":"FINCA","N":"SAN ANTONIO","D":"ANTIOQUIA","MU":"MUTATÁ","V":"LEONCITO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-15535","C":"RURAL","T":"FINCA","N":"LAS CAMELIAS","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"TINAJO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-14825","C":"RURAL","T":"FINCA","N":"SANTA MANUELA","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"TREMENTINO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-37627","C":"RURAL","T":"FINCA","N":"VILLA ELENA","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"MOLINILLO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-34728","C":"RURAL","T":"FINCA","N":"SI SE QUIERE","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"TREMENTINO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-30923","C":"RURAL","T":"FINCA","N":"LUCITANIA","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"SANTA CATALINA","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-30625","C":"RURAL","T":"FINCA","N":"ARCADIA","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"TREMENTINO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-13567","C":"RURAL","T":"FINCA","N":"NUEVA ILUSION","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"TREMENTINO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-37719","C":"RURAL","T":"FINCA","N":"FINCA LA GORGONA","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"MOLINILLO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-35217","C":"RURAL","T":"FINCA","N":"SAN MIGUEL - LA ESPERANZA","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"MOLINILLO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"034-7343","C":"RURAL","T":"FINCA","N":"EL CATIVO","D":"ANTIOQUIA","MU":"SAN PEDRO DE URABA","V":"TREMENTINO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-100995","C":"RURAL","T":"LOTE","N":"YO NOSE","D":"CÓRDOBA","MU":"TIERRALTA","V":"EL PEÑOSO","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"50N-751071","C":"URBANO","T":"APARTAMENTO","N":"CARRERA 13 NO. 124-56 APARTAMENTO 309","D":"BOGOTÁ D.C.","MU":"BOGOTÁ D.C.","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"50N-751033","C":"URBANO","T":"GARAJE","N":"GARAJE 81 CARRERA 13 NO. 124-56","D":"BOGOTÁ D.C.","MU":"BOGOTÁ D.C.","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"080-29656","C":"URBANO","T":"APARTAMENTO","N":"APARTAMENTO 201 CALLE 20 NO. 20-139","D":"MAGDALENA","MU":"SANTA MARTA","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"080-29657","C":"URBANO","T":"APARTAMENTO","N":"APARTAMENTO 202 CALLE 20 NO. 20-139","D":"MAGDALENA","MU":"SANTA MARTA","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"033-8057","C":"RURAL","T":"FINCA","N":"EL ROCIO","D":"ANTIOQUIA","MU":"TITIRIBÍ","V":"CORCOVADO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"033-2500","C":"RURAL","T":"FINCA","N":"EL TEJAR LA GRANJA","D":"ANTIOQUIA","MU":"TITIRIBÍ","V":"CORCOVADO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"033-8058","C":"RURAL","T":"FINCA","N":"LA ESPERANZA","D":"ANTIOQUIA","MU":"TITIRIBÍ","V":"CORCOVADO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"033-8253","C":"RURAL","T":"FINCA","N":"LA PRECIOSA","D":"ANTIOQUIA","MU":"TITIRIBÍ","V":"CORCOVADO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"156-19720","C":"RURAL","T":"CASA - FINCA","N":"SANTANDER","D":"CUNDINAMARCA","MU":"SASAIMA","V":"EL ENTABLE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-8918","C":"RURAL","T":"FINCA","N":"FINCA NUEVA ESTACION","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-8930","C":"RURAL","T":"FINCA","N":"FINCA LA DIVISA","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-70833","C":"RURAL","T":"FINCA","N":"LA HABANA","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-9035","C":"RURAL","T":"FINCA","N":"NUEVA ILUSION","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-9034","C":"RURAL","T":"FINCA","N":"SIN PENSAR","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-36200","C":"RURAL","T":"FINCA","N":"LA UNION","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-36196","C":"RURAL","T":"FINCA","N":"EL JARDIN","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-36201","C":"RURAL","T":"FINCA","N":"EL TESORO","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-36195","C":"RURAL","T":"FINCA","N":"EL MANANTIAL","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-36197","C":"RURAL","T":"FINCA","N":"NUEVO PARAISO","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"027-26","C":"RURAL","T":"FINCA","N":"EL HUNDIDOR","D":"ANTIOQUIA","MU":"REMEDIOS","V":"RIO BAGRE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-9308","C":"RURAL","T":"FINCA","N":"LA ESTACION","D":"CÓRDOBA","MU":"VALENCIA","V":"MONTECARLOS","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-70855","C":"RURAL","T":"FINCA","N":"VILLA SOFIA","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-36199","C":"RURAL","T":"FINCA","N":"VILLA ROSALBA","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-9041","C":"RURAL","T":"FINCA","N":"GANAS ME DAN","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-39731","C":"RURAL","T":"FINCA","N":"EL RECUERDO","D":"CÓRDOBA","MU":"VALENCIA","V":"EL POZO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-98319","C":"RURAL","T":"FINCA","N":"EL DESCANSO","D":"CÓRDOBA","MU":"VALENCIA","V":"EL BRILLANTE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-39778","C":"RURAL","T":"FINCA","N":"EL SOCORRO","D":"CÓRDOBA","MU":"VALENCIA","V":"EL POZO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"005-9999","C":"RURAL","T":"FINCA","N":"BUENAVISTA","D":"ANTIOQUIA","MU":"CIUDAD BOLÍVAR","V":"EL EMPUJE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"005-9554","C":"RURAL","T":"FINCA","N":"HORIZONTES","D":"ANTIOQUIA","MU":"CIUDAD BOLÍVAR","V":"EL EMPUJE","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"027-4025","C":"RURAL","T":"FINCA","N":"EL TRIUNFO","D":"ANTIOQUIA","MU":"SEGOVIA","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"027-4026","C":"RURAL","T":"LOTE","N":"LAS BRISAS 2","D":"ANTIOQUIA","MU":"SEGOVIA","V":"LA PO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"027-4027","C":"RURAL","T":"LOTE","N":"LAS BRISAS","D":"ANTIOQUIA","MU":"SEGOVIA","V":"LA PO","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"001-546066","C":"URBANO","T":"CASA","N":"CASA CARRERA 45 # 24-83","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"001N-893136","C":"URBANO","T":"APARTAMENTO","N":"APARTAMENTO 401 EDIFICIO SAMBAJ","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"001N-893117","C":"URBANO","T":"CUARTO UTIL","N":"CUARTO UTIL NO. 3 EDIFICIO SAMBAJ","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"001N-893111","C":"URBANO","T":"GARAJE","N":"GARAJE NO. 3 EDIFICIO SAMBAJ","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"001N-937195","C":"URBANO","T":"LOCAL","N":"LOCAL COMERCIAL CALLE 44 NO. 88-05","D":"ANTIOQUIA","MU":"MEDELLÍN","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-36198","C":"RURAL","T":"FINCA","N":"NUEVO PARAISO","D":"CÓRDOBA","MU":"VALENCIA","V":"PAJUIL","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-48173","C":"RURAL","T":"CASA LOTE","N":"LA GLORIA","D":"CÓRDOBA","MU":"MONTERÍA","V":"PUEBLO VACA","B":"BLOQUE NORTE FRENTE RESISTENCIA MOTILONA"},
+{"M":"080-29664","C":"URBANO","T":"APARTAMENTO","N":"CARRERA 21 # 18-56 EDIF. GUSTAVO","D":"MAGDALENA","MU":"SANTA MARTA","V":"","B":"BLOQUE CASA CASTANO DE LAS A.U.C."},
+{"M":"140-97089","C":"RURAL","T":"FINCA","N":"FINCA BUENOS AIRES","D":"CÓRDOBA","MU":"MONTERÍA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"307-69754","C":"RURAL","T":"LOTE","N":"PREDIO RURAL LOTE 2: MANGOSTINOS","D":"CUNDINAMARCA","MU":"NILO","V":"BELLAVISTA","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-90792","C":"URBANO","T":"APARTAMENTO","N":"APARTAMENTO 401 CALLE 6A #12-10","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-5120","C":"URBANO","T":"CASA","N":"PREDIO URBANO CALLE 7C #8A-47 BARRIO NOVALITO","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-13936","C":"RURAL","T":"FINCA","N":"FINCA COTOPRIX - EL MAMON","D":"CESAR","MU":"VALLEDUPAR","V":"LA MESA","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"140-75905","C":"URBANO","T":"APARTAMENTO","N":"CARRERA 2 # 68-20 AP.203","D":"CÓRDOBA","MU":"MONTERÍA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-75920","C":"URBANO","T":"PARQUEADERO","N":"CARRERA 2 # 68-20 GARAJE 6","D":"CÓRDOBA","MU":"MONTERÍA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"226-29263","C":"RURAL","T":"FINCA","N":"LA PECHICHONA","D":"MAGDALENA","MU":"SABANAS DE SAN ANGEL","V":"SAN ANGEL","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"226-29939","C":"RURAL","T":"FINCA","N":"MATUZALEN","D":"MAGDALENA","MU":"SABANAS DE SAN ANGEL","V":"SAN ANGEL","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"226-10260","C":"RURAL","T":"FINCA","N":"EL JOROPO","D":"MAGDALENA","MU":"SABANAS DE SAN ANGEL","V":"SAN ANGEL","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-7507","C":"RURAL","T":"FINCA","N":"EL PRADO","D":"CESAR","MU":"VALLEDUPAR","V":"AZUCARBUENA","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"192-15626","C":"RURAL","T":"FINCA","N":"FINCA LOS BARRIALES","D":"CESAR","MU":"CHIMICHAGUA","V":"GUARAGUAO","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-103517","C":"URBANO","T":"LOCAL","N":"CARRERA 7 # 8-26 BARRIO NOVALITO","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"140-45489","C":"RURAL","T":"FINCA","N":"VILLA ELENA","D":"CÓRDOBA","MU":"MONTERÍA","V":"LA MANTA","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-95231","C":"RURAL","T":"FINCA","N":"FINCA VILLA ELENA","D":"CÓRDOBA","MU":"MONTERÍA","V":"LA MANTA","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"140-72157","C":"URBANO","T":"OFICINA","N":"CALLE 62B #6-22 PLAZA DE LA CASTELLANA","D":"CÓRDOBA","MU":"MONTERÍA","V":"","B":"BLOQUE CORDOBA DE LAS A.U.C."},
+{"M":"190-18662","C":"RURAL","T":"FINCA","N":"EL TAMARINDO","D":"CESAR","MU":"VALLEDUPAR","V":"PAN DE AZUCAR","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-23859","C":"RURAL","T":"FINCA","N":"CASABLANCA","D":"CESAR","MU":"VALLEDUPAR","V":"PAN DE AZUCAR","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-23856","C":"RURAL","T":"FINCA","N":"LT RURAL LA ESPERANZA","D":"CESAR","MU":"VALLEDUPAR","V":"PAN DE AZUCAR","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"040-270378","C":"RURAL","T":"FINCA","N":"CARIBELANDIA LOTE 2","D":"ATLÁNTICO","MU":"TUBARA","V":"TURABA","B":"BLOQUE MONTES DE MARÍA DE LAS A.U.C."},
+{"M":"040-270379","C":"RURAL","T":"FINCA","N":"CARIBELANDIA LOTE 3","D":"ATLÁNTICO","MU":"TUBARA","V":"TURABA","B":"BLOQUE MONTES DE MARÍA DE LAS A.U.C."},
+{"M":"040-270381","C":"RURAL","T":"LOTE","N":"CARIBELANDIA","D":"ATLÁNTICO","MU":"TUBARA","V":"TURABA","B":"BLOQUE MONTES DE MARÍA DE LAS A.U.C."},
+{"M":"040-270382","C":"RURAL","T":"LOTE","N":"SIN DIRECCION CARIBELANDIA","D":"ATLÁNTICO","MU":"TUBARA","V":"TURABA","B":"BLOQUE MONTES DE MARÍA DE LAS A.U.C."},
+{"M":"190-14270","C":"RURAL","T":"FINCA","N":"SIN DIRECCION LOS ALACRANES","D":"CESAR","MU":"VALLEDUPAR","V":"VALLEDUPAR","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-44865","C":"URBANO","T":"LOTE","N":"CARRERA 7 N.7-35 UR. NOVALITO N.10","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-88223","C":"RURAL","T":"LOTE","N":"UR RINCON DE ZIRUMA LT 3 MZ 9","D":"CESAR","MU":"VALLEDUPAR","V":"LA PALMA Y SABANAS DEL VALLE","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-88224","C":"RURAL","T":"LOTE","N":"UR RINCON DE ZIRUMA LT 4 MZ 9","D":"CESAR","MU":"VALLEDUPAR","V":"LA PALMA Y SABANAS DEL VALLE","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-90778","C":"URBANO","T":"GARAJE","N":"CARRERA 6A #12-10 PARQUEADEROS 20 Y 21 EDIF. EL PARQUE","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-93073","C":"RURAL","T":"LOTE","N":"NO REGISTRA","D":"CESAR","MU":"VALLEDUPAR","V":"LA PALMA Y SABANAS DEL VALLE","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-93074","C":"RURAL","T":"LOTE","N":"SIN DIRECCION","D":"CESAR","MU":"VALLEDUPAR","V":"LA PALMA Y SABANAS DEL VALLE","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-93075","C":"RURAL","T":"LOTE","N":"NO REGISTRA","D":"CESAR","MU":"VALLEDUPAR","V":"LA PALMA Y SABANAS DEL VALLE","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-93103","C":"RURAL","T":"LOTE","N":"NO REGISTRA","D":"CESAR","MU":"VALLEDUPAR","V":"LA PALMA Y SABANAS DEL VALLE","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-93113","C":"RURAL","T":"LOTE","N":"NO REGISTRA","D":"CESAR","MU":"VALLEDUPAR","V":"LA PALMA Y SABANAS DEL VALLE","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-99254","C":"URBANO","T":"LOTE","N":"NO REGISTRA","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"222-34968","C":"RURAL","T":"FINCA","N":"LOTE VILLA KELLY","D":"MAGDALENA","MU":"PIVIJAY","V":"PIVIJAY","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-62088","C":"RURAL","T":"FINCA","N":"VILLA ORNELA","D":"CESAR","MU":"VALLEDUPAR","V":"CGTO. DE VALENCIA DE JESUS","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-12870","C":"RURAL","T":"FINCA","N":"VILLA HERMOSO","D":"CESAR","MU":"BECERRIL","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-108697","C":"RURAL","T":"FINCA","N":"VILLA MARY","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-100034","C":"RURAL","T":"FINCA","N":"VILLA CHIA","D":"CESAR","MU":"VALLEDUPAR","V":"VALENCIA","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-52840","C":"URBANO","T":"LOTE","N":"MI RANCHO","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-5026","C":"RURAL","T":"FINCA","N":"LA ALQUERIA","D":"CESAR","MU":"VALLEDUPAR","V":"EL CALLAO","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-39620","C":"RURAL","T":"FINCA","N":"SIN DIRECCION SOMALIA HOY VILLA DANIA","D":"CESAR","MU":"VALLEDUPAR","V":"PAN DE AZUCAR","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-106625","C":"RURAL","T":"FINCA","N":"FI CAJA DE AHORROS 1","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-56476","C":"URBANO","T":"FINCA","N":"ANTES FINCA LOS PAISAS II Y CAMPO ALEGRE I","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."},
+{"M":"190-101987","C":"URBANO","T":"FINCA","N":"CAMPO ALEGRE TRES","D":"CESAR","MU":"VALLEDUPAR","V":"","B":"BLOQUE NORTE DE LAS A.U.C."}
+];
+
+const BLOQUES = [
+  "BLOQUE CASA CASTANO DE LAS A.U.C.",
+  "BLOQUE CORDOBA DE LAS A.U.C.",
+  "BLOQUE NORTE DE LAS A.U.C.",
+  "BLOQUE CATATUMBO DE LAS A.U.C.",
+  "BLOQUE MONTES DE MARÍA DE LAS A.U.C.",
+  "BLOQUE NORTE FRENTE RESISTENCIA MOTILONA"
+];
+const BS = ["Casa Castaño","Córdoba","Norte","Catatumbo","Montes de María","Norte / Motilona"];
+const BC = ["#C9922A","#8B5CF6","#3B82F6","#10B981","#EF4444","#F59E0B"];
+
+function grp(arr, k) {
+  return arr.reduce((a,d)=>{ const v=d[k]; if(!a[v])a[v]=[]; a[v].push(d); return a; }, {});
+}
+
+const byD = grp(FULL,'D');
+const deptStats = Object.entries(byD).map(([d,a])=>({
+  dept:d, count:a.length,
+  bloques: BLOQUES.map(b=>a.filter(r=>r.B===b).length)
+})).sort((a,b)=>b.count-a.count);
+const maxD = deptStats[0].count;
+const colorScale = d3.scaleQuantize([0, maxD], ["#1a1508","#3d2e0a","#6b4e10","#9a7018","#C9922A","#E8B54A","#f5d070"]);
+
+// Build inline bars
+function ib(id, data, maxV, color='#C9922A') {
+  const el = document.getElementById(id); if(!el) return;
+  el.innerHTML = data.map(([l,v])=>`
+    <div class="ibr">
+      <div class="ibl" title="${l}">${l.length>20?l.slice(0,20)+'…':l}</div>
+      <div class="ibt"><div class="ibf" style="width:${Math.round(v/maxV*100)}%;background:${color}"></div></div>
+      <div class="ibv">${v}</div>
+    </div>`).join('');
+}
+function ibBloque(id) {
+  const el = document.getElementById(id); if(!el) return;
+  const bData = BLOQUES.map((b,i)=>[BS[i], FULL.filter(r=>r.B===b).length, i]);
+  el.innerHTML = bData.map(([l,v,i])=>`
+    <div class="ibr">
+      <div class="ibl" title="${l}">${l}</div>
+      <div class="ibt"><div class="ibf" style="width:${Math.round(v/bData[0][1]*100)}%;background:${BC[i]}"></div></div>
+      <div class="ibv">${v}</div>
+    </div>`).join('');
+}
+
+// Dept data
+const deptData = deptStats.map(d=>[d.dept,d.count]);
+const byMu = grp(FULL,'MU');
+const munData = Object.entries(byMu).map(([m,a])=>[m,a.length]).sort((a,b)=>b[1]-a[1]).slice(0,10);
+const byT = grp(FULL,'T');
+const tipoData = Object.entries(byT).map(([t,a])=>[t,a.length]).sort((a,b)=>b[1]-a[1]);
+
+// Populate all charts
+function buildAllCharts() {
+  // Inicio tab
+  ib('inicio-depto', deptData, maxD);
+  ib('inicio-mun', munData.slice(0,5), munData[0][1], '#3B82F6');
+  ib('inicio-tipo', tipoData.slice(0,6), tipoData[0][1], '#10B981');
+  ibBloque('inicio-bloque');
+  // Gráficas tab
+  ib('g-depto', deptData, maxD);
+  ib('g-mun', munData, munData[0][1], '#3B82F6');
+  ib('g-tipo', tipoData, tipoData[0][1], '#10B981');
+  ibBloque('g-bloque');
+  // Rural/Urbano per dept
+  ['g-ruvs'].forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    el.innerHTML = deptStats.map(d=>{
+      const r=byD[d.dept].filter(x=>x.C==='RURAL').length;
+      const u=d.count-r;
+      return `<div class="sbr">
+        <div class="sbl" title="${d.dept}">${d.dept.length>14?d.dept.slice(0,14)+'…':d.dept}</div>
+        <div class="sbt">
+          <div class="sbs" style="flex:${r};background:#4a9e6e;opacity:.8"></div>
+          <div class="sbs" style="flex:${u||0.01};background:#C9922A;opacity:.7"></div>
+        </div>
+        <div class="sbv">${d.count}</div></div>`;
+    }).join('')+`<div style="display:flex;gap:1rem;margin-top:.5rem;font-family:var(--mono);font-size:9px;color:var(--tm)">
+      <span><span style="display:inline-block;width:8px;height:8px;background:#4a9e6e;margin-right:3px"></span>Rural</span>
+      <span><span style="display:inline-block;width:8px;height:8px;background:#C9922A;margin-right:3px"></span>Urbano</span></div>`;
+  });
+  // Stacked
+  const sel = document.getElementById('g-stacked'); if(sel) {
+    sel.innerHTML = deptStats.map(d=>{
+      const segs = d.bloques.map((v,i)=>v>0?`<div class="sbs" style="flex:${v};background:${BC[i]}" title="${BS[i]}: ${v}"></div>`:'').join('');
+      return `<div class="sbr"><div class="sbl" title="${d.dept}">${d.dept.length>14?d.dept.slice(0,14)+'…':d.dept}</div><div class="sbt">${segs}</div><div class="sbv">${d.count}</div></div>`;
+    }).join('');
+  }
+  // Clase donut
+  const gcl = document.getElementById('g-clase'); if(gcl) {
+    const rural = FULL.filter(d=>d.C==='RURAL').length;
+    const urban = FULL.filter(d=>d.C==='URBANO').length;
+    gcl.innerHTML = `<div class="donut-wrap">
+      <canvas id="donut-cvs" width="100" height="100"></canvas>
+      <div class="donut-labels">
+        <div class="di"><div class="dd" style="background:#4a9e6e"></div>Rural: <strong style="color:var(--text);margin-left:4px">${rural}</strong>&nbsp;<span style="color:var(--tm)">(${Math.round(rural/148*100)}%)</span></div>
+        <div class="di"><div class="dd" style="background:#C9922A"></div>Urbano: <strong style="color:var(--text);margin-left:4px">${urban}</strong>&nbsp;<span style="color:var(--tm)">(${Math.round(urban/148*100)}%)</span></div>
+        <div style="margin-top:.5rem;font-family:var(--mono);font-size:9px;color:var(--tm);border-top:1px solid var(--border);padding-top:.4rem">Fincas: 92 · Lotes: 23<br>Aptos: 8 · Otros: 25</div>
+      </div></div>`;
+    const cv=document.getElementById('donut-cvs'); if(cv){
+      const ctx=cv.getContext('2d'),cx=50,cy=50,r=40,lw=14;
+      let sa=-Math.PI/2;
+      [{v:rural,c:'#4a9e6e'},{v:urban,c:'#C9922A'}].forEach(s=>{
+        const sw=(s.v/148)*Math.PI*2;
+        ctx.beginPath();ctx.arc(cx,cy,r,sa,sa+sw);ctx.arc(cx,cy,r-lw,sa+sw,sa,true);ctx.closePath();ctx.fillStyle=s.c;ctx.fill();sa+=sw;
+      });
+      ctx.fillStyle='#111318';ctx.beginPath();ctx.arc(cx,cy,r-lw-1,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#E8B54A';ctx.font='bold 18px IBM Plex Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('148',cx,cy-3);
+      ctx.fillStyle='#4a4640';ctx.font='8px IBM Plex Mono,monospace';ctx.fillText('bienes',cx,cy+10);
+    }
+  }
+  // BL legends
+  ['bl-leg-map','bl-leg-chart'].forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    el.innerHTML=BLOQUES.map((b,i)=>`<div class="bl-item"><div class="bl-dot" style="background:${BC[i]}"></div>${BS[i]}</div>`).join('');
+  });
+}
+buildAllCharts();
+
+// Legend scale
+const scEl=document.getElementById('legend-scale');
+if(scEl) for(let i=0;i<7;i++){const d=document.createElement('div');d.style.background=colorScale(Math.round(i/6*maxD));scEl.appendChild(d);}
+
+// Dept list map
+const dlEl=document.getElementById('dept-list-map');
+if(dlEl) dlEl.innerHTML=deptStats.map(d=>`
+  <div class="dept-row-l" onclick="hlDept('${d.dept}')">
+    <div class="dept-dot" style="background:${colorScale(d.count)}"></div>
+    <div><div class="dept-nm">${d.dept}</div><div class="dept-bar-mini" style="width:${Math.round(d.count/maxD*100)}%"></div></div>
+    <div class="dept-vl">${d.count}</div>
+  </div>`).join('');
+
+/* ─── MAP ─── */
+let mapInited = false;
+let activeHL = null;
+function normD(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/\s+/g,' ').trim()}
+
+function initMap(){
+  if(mapInited) return; mapInited=true;
+  const GEO="./colombia.geo.json";
+  const svg=d3.select('#colombia-map');
+  const g=svg.append('g');
+  const tt=document.getElementById('tt');
+  function showTT(evt,feat){
+    const nm=feat.properties.NOMBRE_DPT;
+    const match=deptStats.find(d=>normD(d.dept)===normD(nm));
+    const cnt=match?match.count:0;
+    document.getElementById('tt-d').textContent=nm;
+    document.getElementById('tt-t').textContent=cnt?`${cnt} bienes postulados`:'Sin bienes registrados';
+    let bh='';
+    if(match) match.bloques.forEach((v,i)=>{if(v>0) bh+=`<div class="tt-b"><span>${BS[i]}</span><span>${v}</span></div>`;});
+    document.getElementById('tt-b').innerHTML=bh;
+    tt.style.opacity='1'; moveTT(evt);
+  }
+  function moveTT(evt){
+    const tw=220,th=150;
+    tt.style.left=(evt.clientX+14+tw>window.innerWidth?evt.clientX-tw-10:evt.clientX+14)+'px';
+    tt.style.top=(evt.clientY+th>window.innerHeight?evt.clientY-th:evt.clientY+10)+'px';
+  }
+  d3.json(GEO).then(geo=>{
+    const proj=d3.geoMercator().fitSize([500,580],geo);
+    const path=d3.geoPath(proj);
+    g.selectAll('path.dp').data(geo.features).join('path').attr('class','dp')
+      .attr('d',path)
+      .attr('fill',d=>{const m=deptStats.find(x=>normD(x.dept)===normD(d.properties.NOMBRE_DPT));return m?colorScale(m.count):'#181c22';})
+      .attr('stroke','rgba(255,255,255,0.09)').attr('stroke-width',0.4).style('cursor','pointer')
+      .on('mouseover',function(evt,d){d3.select(this).attr('stroke','rgba(255,210,80,0.55)').attr('stroke-width',1.2);showTT(evt,d);})
+      .on('mousemove',moveTT)
+      .on('mouseout',function(evt,d){if(this!==activeHL)d3.select(this).attr('stroke','rgba(255,255,255,0.09)').attr('stroke-width',0.4);tt.style.opacity='0';})
+      .on('click',function(evt,d){hlDept(d.properties.NOMBRE_DPT,this);});
+  }).catch(()=>{
+    document.getElementById('colombia-map').innerHTML='<text x="250" y="290" text-anchor="middle" font-family="monospace" font-size="12" fill="#4a4640">Requiere conexión a internet para cargar el mapa</text>';
+  });
+}
+function hlDept(name, el){
+  const ntgt=normD(name);
+  if(!el){
+    d3.selectAll('path.dp').each(function(d){if(normD(d.properties.NOMBRE_DPT)===ntgt)hlDept(name,this);});
+    return;
+  }
+  if(activeHL===el){d3.select(el).attr('stroke','rgba(255,255,255,0.09)').attr('stroke-width',0.4);activeHL=null;}
+  else{
+    if(activeHL) d3.select(activeHL).attr('stroke','rgba(255,255,255,0.09)').attr('stroke-width',0.4);
+    d3.select(el).attr('stroke','#E8B54A').attr('stroke-width',1.8);
+    activeHL=el;
+  }
+}
+
+/* ─── TABLE ─── */
+const PER=20;
+let filtered=[...FULL], sortCol='', sortDir=1, page=1;
+
+function uniq(arr){return [...new Set(arr.filter(Boolean).map(x=>x.trim()).sort())];}
+function popSel(id,vals){const s=document.getElementById(id);s.innerHTML='<option value="">Todos</option>';vals.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});}
+
+popSel('f-tipo', uniq(FULL.map(r=>r.T)));
+popSel('f-depto', uniq(FULL.map(r=>r.D)));
+popSel('f-municipio', uniq(FULL.map(r=>r.MU)));
+popSel('f-bloque', uniq(FULL.map(r=>r.B)));
+popSel('f-vereda', uniq(FULL.map(r=>r.V)));
+
+function applyFilters(){
+  const clase=document.getElementById('f-clase').value;
+  const tipo=document.getElementById('f-tipo').value;
+  const depto=document.getElementById('f-depto').value;
+  const mun=document.getElementById('f-municipio').value;
+  const bloque=document.getElementById('f-bloque').value;
+  const vereda=document.getElementById('f-vereda').value;
+  const q=document.getElementById('f-search').value.toLowerCase().trim();
+  filtered=FULL.filter(r=>{
+    if(clase && r.C!==clase) return false;
+    if(tipo && r.T!==tipo) return false;
+    if(depto && r.D!==depto) return false;
+    if(mun && r.MU!==mun) return false;
+    if(bloque && r.B!==bloque) return false;
+    if(vereda && r.V.trim()!==vereda) return false;
+    if(q && !(r.N+' '+r.M).toLowerCase().includes(q)) return false;
+    return true;
+  });
+  if(sortCol) filtered.sort((a,b)=>{
+    const x=(a[sortCol]||'').toString().toLowerCase(), y=(b[sortCol]||'').toString().toLowerCase();
+    return x<y?-sortDir:x>y?sortDir:0;
+  });
+  page=1; renderTable();
+}
+const colMap={MATRICULA:'M',NOMBRE:'N',CLASE:'C',TIPO:'T',DEPARTAMENTO:'D',MUNICIPIO:'MU',VEREDA:'V',BLOQUE:'B'};
+function renderTable(){
+  document.getElementById('results-count').innerHTML=`Mostrando <em>${filtered.length}</em> de ${FULL.length} registros`;
+  const rows=filtered.slice((page-1)*PER, page*PER);
+  document.getElementById('table-body').innerHTML=rows.map(r=>`<tr>
+    <td class="tdm">${r.M}</td>
+    <td class="tdn" title="${r.N}">${r.N.length>36?r.N.slice(0,36)+'…':r.N}</td>
+    <td><span class="pill ${r.C==='RURAL'?'pr':'pu'}">${r.C}</span></td>
+    <td style="font-size:10px">${r.T}</td>
+    <td style="font-size:10px">${r.D}</td>
+    <td style="font-size:10px">${r.MU}</td>
+    <td style="font-size:10px;color:var(--tm)">${r.V||'—'}</td>
+    <td><span class="pill pb" title="${r.B}">${r.B.replace('BLOQUE ','').replace(' DE LAS A.U.C.','')}</span></td>
+  </tr>`).join('');
+  // pagination
+  const tot=Math.ceil(filtered.length/PER);
+  const pag=document.getElementById('pagination');
+  if(tot<=1){pag.innerHTML='';return;}
+  let h=`<button class="pb2" onclick="goP(${page-1})" ${page===1?'disabled':''}>←</button>`;
+  for(let i=1;i<=tot;i++){
+    if(i===1||i===tot||Math.abs(i-page)<=2) h+=`<button class="pb2 ${i===page?'active':''}" onclick="goP(${i})">${i}</button>`;
+    else if(Math.abs(i-page)===3) h+=`<span style="color:var(--tm);font-family:var(--mono);font-size:10px">…</span>`;
+  }
+  h+=`<button class="pb2" onclick="goP(${page+1})" ${page===tot?'disabled':''}>→</button>`;
+  pag.innerHTML=h;
+}
+function goP(p){page=Math.max(1,Math.min(p,Math.ceil(filtered.length/PER)));renderTable();document.getElementById('panel-datos').scrollTop=0;}
+
+['f-clase','f-tipo','f-depto','f-municipio','f-bloque','f-vereda'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+document.getElementById('f-search').addEventListener('input',applyFilters);
+document.getElementById('btn-reset').addEventListener('click',()=>{
+  ['f-clase','f-tipo','f-depto','f-municipio','f-bloque','f-vereda'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-search').value='';
+  sortCol='';sortDir=1;
+  document.querySelectorAll('thead th').forEach(t=>{t.classList.remove('sorted');const s=t.querySelector('.si');if(s)s.textContent=' ↕';});
+  applyFilters();
+});
+document.querySelectorAll('thead th[data-col]').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const col=colMap[th.dataset.col]||th.dataset.col;
+    if(sortCol===col) sortDir*=-1; else{sortCol=col;sortDir=1;}
+    document.querySelectorAll('thead th').forEach(t=>t.classList.remove('sorted'));
+    th.classList.add('sorted');
+    const si=th.querySelector('.si');if(si)si.textContent=sortDir===1?' ↑':' ↓';
+    applyFilters();
+  });
+});
+applyFilters();
+</script>
+</body>
+</html>
